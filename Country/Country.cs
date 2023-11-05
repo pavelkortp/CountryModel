@@ -3,7 +3,7 @@
 /// <summary>
 /// Country model.
 /// </summary>
-public class Country
+public class Country : ICountry
 {
     /// <summary>
     /// Country name.
@@ -70,7 +70,7 @@ public class Country
         }
     }
 
-    public int RegionCount => _regions.Capacity;
+    public int RegionCount => _regions.Count;
 
     public int PopulationCenterCount => _regions.Sum((e) => e.PopulationCenterCount);
 
@@ -103,6 +103,35 @@ public class Country
         get => _regions;
         set => _regions = value ?? throw new ArgumentNullException(nameof(value));
     }
+
+    //Interface implementation
+    public void AddRegion(Region r)
+    {
+        if (r == null)
+        {
+            throw new ArgumentNullException();
+        }
+
+        _regions.Add(r);
+    }
+
+    public Region? FindRegionByName(string name)
+    {
+        return Regions.Find(e => e.Name.ToLower() == name.ToLower());
+    }
+
+    public bool DeleteRegion(Region r)
+    {
+        return Regions.Remove(r);
+    }
+
+    public bool DeleteRegionByName(string name)
+    {
+        var r = FindRegionByName(name);
+        if (r == null) throw new ArgumentException("No regions with this name: " + name);
+        return Regions.Remove(r);
+    }
+    
 
     public override string ToString()
     {

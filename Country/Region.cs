@@ -27,6 +27,7 @@ public class Region
     /// </summary>
     private double _area;
     
+    
 
     public Region(string name)
     {
@@ -74,7 +75,7 @@ public class Region
 
     public int Population => _populationCenters.Sum((e) => e.Population);
     
-    public int PopulationCenterCount => _populationCenters.Capacity;
+    public int PopulationCenterCount => _populationCenters.Count;
 
     public PopulationCenter RegionalCentre
     {
@@ -93,6 +94,20 @@ public class Region
 
     public double Area => _populationCenters.Sum((e) => e.Area);
 
+    public void AddPopulationCenter(PopulationCenter p)
+    {
+        if (p == null)  throw new ArgumentNullException();
+        this._populationCenters.Add(p);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is Region other)
+        {
+            return Name == other.Name && Area == other.Area;
+        }
+        return false;
+    }
     
 
     public override string ToString()

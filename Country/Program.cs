@@ -9,12 +9,6 @@ class Program
             10000000,
             897);
         
-        var Ukraine = new Country(
-            "Ukraine",
-            capital,
-            "Europe");
-        
-        
         var kyivObl = new Region(
             "Kyivska",
             capital
@@ -40,15 +34,37 @@ class Program
         dniproPopCenters.Add(new Settlement("Sofiivka", 9000, 20));
         
         dniproObl.PopulationCenters = dniproPopCenters;
-        
+
         var regions = new List<Region>();
         regions.Add(kyivObl);
         regions.Add(dniproObl);
 
-        Ukraine.Regions = regions;
+        ICountry Ukraine = new Country(
+            "Ukraine",
+            capital,
+            "Europe",
+            regions);
+        
+        Console.WriteLine(Ukraine);
+        
+        var odeskaObl = new Region(
+            "Odeska",
+            regionCapitalCity
+        );
+        
+        var odesaPopCenters = new List<PopulationCenter>();
+        dniproPopCenters.Add(new City("Odesa", 2000000, 1000));
+        
+        odeskaObl.PopulationCenters = odesaPopCenters;
+
+        
+        Ukraine.AddRegion(odeskaObl);
         
         Console.WriteLine(Ukraine);
 
+        Ukraine.DeleteRegion(dniproObl);
+        
+        Console.WriteLine(Ukraine);
 
     }
 }

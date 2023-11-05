@@ -1,18 +1,17 @@
 ﻿namespace Country;
 
 public abstract class PopulationCenter
-{   
+{
     /// <summary>
     /// Name of population center.
     /// </summary>
     private string _name;
     
-    
     /// <summary>
     /// Count of peoples.
     /// </summary>
     private int _population;
-    
+
     /// <summary>
     /// Area of population center in km^2
     /// </summary>
@@ -32,7 +31,6 @@ public abstract class PopulationCenter
     {
         Area = area;
     }
-    
 
 
     public string Name
@@ -48,7 +46,7 @@ public abstract class PopulationCenter
             _name = value;
         }
     }
-    
+
 
     public int Population
     {
@@ -76,6 +74,39 @@ public abstract class PopulationCenter
 
             _area = value;
         }
+    }
+
+    /// <summary>
+    /// Value which show how many persons on 1 km^2.
+    /// </summary>
+    /// <returns>population density</returns>
+    public double PopulationDensity()
+    {
+        return Population / Area;
+    }
+
+    /// <summary>
+    /// Increase population in this population center.
+    /// </summary>
+    /// <param name="count">number of newly arrived residents</param>
+    public void AddResidents(int count)
+    {
+        if (count <= 0)
+        {
+            throw new ArgumentException("Count must be greater than zero");
+        }
+
+        Population += count;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is PopulationCenter other)
+        {
+            return Name == other.Name && Area == other.Area;
+        }
+
+        return false;
     }
     
     public override string ToString()

@@ -1,6 +1,6 @@
 ﻿namespace Country;
 
-public class City: PopulationCenter
+public class City : PopulationCenter
 {
     public City(string name) : base(name)
     {
@@ -13,5 +13,8 @@ public class City: PopulationCenter
     public City(string name, int population, double area) : base(name, population, area)
     {
     }
-    
+
+    public City(Settlement s):base(s.Name, s.Population, s.Area)
+    {
+    }
 }
