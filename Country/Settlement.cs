@@ -14,7 +14,5 @@ public class Settlement: PopulationCenter
     {
     }
 
-    public Settlement(string name, int population, double area, Region region) : base(name, population, area, region)
-    {
-    }
+
 }

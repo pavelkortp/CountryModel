@@ -2,31 +2,44 @@
 
 public class Region
 {
+    /// <summary>
+    /// Region's name.
+    /// </summary>
     private string _name;
+    
+    /// <summary>
+    /// Population centers in this region.
+    /// </summary>
     private List<PopulationCenter> _populationCenters;
+    
+    /// <summary>
+    /// Count of persons, which lives in this region.
+    /// </summary>
     private int _population;
+    
+    /// <summary>
+    /// Capital city of this region.
+    /// </summary>
     private PopulationCenter _regionalCentre;
+    
+    /// <summary>
+    /// Area of region in km^2
+    /// </summary>
     private double _area;
-    private Country _country;
+    
 
     public Region(string name)
     {
         Name = name;
     }
 
-    public Region(string name, Country country) : this(name)
-    {
-        Name = name;
-        Country = country;
-    }
-
-    public Region(string name, Country country, PopulationCenter regionalCentre) : this(name, country)
+    public Region(string name, PopulationCenter regionalCentre) : this(name)
     {
         RegionalCentre = regionalCentre;
     }
 
-    public Region(string name, Country country, PopulationCenter regionalCentre, List<PopulationCenter> centers) :
-        this(name, country, regionalCentre)
+    public Region(string name, PopulationCenter regionalCentre, List<PopulationCenter> centers) :
+        this(name, regionalCentre)
     {
         PopulationCenters = centers;
     }
@@ -55,25 +68,12 @@ public class Region
                 throw new ArgumentNullException();
             }
 
-            _populationCenters = value
-                .Where((e) => !e.Region.Equals(this))
-                .Select((c) =>
-                {
-                    c.Region = this;
-                    return c;
-                })
-                .ToList();
+            _populationCenters = value;
         }
     }
 
     public int Population => _populationCenters.Sum((e) => e.Population);
-
-    public Country Country
-    {
-        get => _country;
-        set => _country = value ?? throw new ArgumentNullException(nameof(value));
-    }
-
+    
     public int PopulationCenterCount => _populationCenters.Capacity;
 
     public PopulationCenter RegionalCentre
@@ -81,50 +81,26 @@ public class Region
         get => _regionalCentre;
         set
         {
+            Console.WriteLine(value);
             if (value == null)
             {
                 throw new ArgumentNullException();
             }
-
-            if (!_populationCenters.Contains(value))
-            {
-                _populationCenters.Add(value);
-            }
-
+            
             _regionalCentre = value;
         }
     }
 
     public double Area => _populationCenters.Sum((e) => e.Area);
 
-    public override bool Equals(object? obj)
-    {
-        if (obj is Region other)
-        {
-            return Name.ToLower().Equals(other.Name.ToLower()) &&
-                   Country.Equals(Country);
-        }
-
-        return false;
-    }
-
-    public override int GetHashCode()
-    {
-        return Name.GetHashCode();
-    }
     
-    public static bool operator ==(Region left, Region right)
-    {
-        if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
-            return true;
 
-        if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            return false;
-        return left.Equals(right);
-    }
-
-    public static bool operator !=(Region left, Region right)
+    public override string ToString()
     {
-        return !(left == right);
+        return "Region name: " + Name + '\n' +
+               "Regional center: " + RegionalCentre + '\n' +
+               "Population: " + Population + '\n' +
+               "Area: " + Area + '\n' +
+               "Population centers: " + PopulationCenters + '\n';
     }
 }

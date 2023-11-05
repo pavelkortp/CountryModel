@@ -2,13 +2,20 @@
 
 public abstract class PopulationCenter
 {   
-    //Name of population center.
+    /// <summary>
+    /// Name of population center.
+    /// </summary>
     private string _name;
-    //Region in which PopulationCenter placed
-    private Region _region;
-    //Count of peoples.
+    
+    
+    /// <summary>
+    /// Count of peoples.
+    /// </summary>
     private int _population;
-    //Area of population center in km^2
+    
+    /// <summary>
+    /// Area of population center in km^2
+    /// </summary>
     private double _area;
 
     public PopulationCenter(string name)
@@ -23,13 +30,9 @@ public abstract class PopulationCenter
 
     public PopulationCenter(string name, int population, double area) : this(name, population)
     {
-        Area = population;
+        Area = area;
     }
-
-    public PopulationCenter(string name, int population, double area, Region region) : this(name, population, area)
-    {
-        Region = region;
-    }
+    
 
 
     public string Name
@@ -45,12 +48,7 @@ public abstract class PopulationCenter
             _name = value;
         }
     }
-
-    public Region Region
-    {
-        get => _region;
-        set => _region = value ?? throw new ArgumentNullException(nameof(value));
-    }
+    
 
     public int Population
     {
@@ -78,5 +76,12 @@ public abstract class PopulationCenter
 
             _area = value;
         }
+    }
+    
+    public override string ToString()
+    {
+        return "Population center name: " + Name + '\n' +
+               "Population: " + Population + '\n' +
+               "Area: " + Area + '\n';
     }
 }

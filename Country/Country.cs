@@ -1,12 +1,38 @@
 ﻿namespace Country;
 
+/// <summary>
+/// Country model.
+/// </summary>
 public class Country
 {
+    /// <summary>
+    /// Country name.
+    /// </summary>
     private string _name;
+
+    /// <summary>
+    /// Count of persons which live in this country.
+    /// </summary>
     private int _population;
+
+    /// <summary>
+    /// Capital city of this country.
+    /// </summary>
     private PopulationCenter _capitalCity;
+
+    /// <summary>
+    /// Country's area in km^2.
+    /// </summary>
     private double _area;
+
+    /// <summary>
+    /// Country's world part (Asia, Europe, ect)
+    /// </summary>
     private string _worldPart;
+
+    /// <summary>
+    /// Regions of this country.
+    /// </summary>
     private List<Region> _regions;
 
     public Country(string name)
@@ -18,18 +44,18 @@ public class Country
     {
         CapitalCity = capital;
     }
-    
+
     public Country(string name, PopulationCenter capital, string worldPart) : this(name, capital)
     {
         WorldPart = worldPart;
     }
 
-    public Country(string name, PopulationCenter capital, string worldPart, List<Region> regions) : 
+    public Country(string name, PopulationCenter capital, string worldPart, List<Region> regions) :
         this(name, capital, worldPart)
     {
         Regions = regions;
     }
-    
+
     public string Name
     {
         get => _name;
@@ -46,7 +72,7 @@ public class Country
 
     public int RegionCount => _regions.Capacity;
 
-    public int PopulationCenterCount => _regions.Sum((e)=> e.PopulationCenterCount);
+    public int PopulationCenterCount => _regions.Sum((e) => e.PopulationCenterCount);
 
     public int Population => _regions.Sum((e) => e.Population);
 
@@ -56,7 +82,7 @@ public class Country
         set => _capitalCity = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public double Area => _regions.Sum((e)=> e.Area);
+    public double Area => _regions.Sum((e) => e.Area);
 
     public string WorldPart
     {
@@ -77,5 +103,25 @@ public class Country
         get => _regions;
         set => _regions = value ?? throw new ArgumentNullException(nameof(value));
     }
-    
+
+    public override string ToString()
+    {
+        string regions = "";
+        if (Regions != null)
+        {
+            foreach (var r in Regions)
+            {
+                regions += r.Name + ", ";
+            }
+
+            regions = regions.Substring(0, regions.Length - 2);
+        }
+
+        return "Country name: " + Name + '\n' +
+               "Capital city: " + CapitalCity.Name + '\n' +
+               "Population: " + Population + '\n' +
+               "World part: " + WorldPart + '\n' +
+               "Area: " + Area + '\n' +
+               "Regions: " + regions + '\n';
+    }
 }
