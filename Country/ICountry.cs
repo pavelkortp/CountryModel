@@ -30,4 +30,16 @@ public interface ICountry
     /// <param name="name">Region's name which need to be remove.</param>
     /// <returns>True if region removes successful, otherwise false.</returns>
     bool DeleteRegionByName(string name);
+
+    /// <summary>
+    /// Returns count of city in this country.
+    /// </summary>
+    /// <returns>count of cities</returns>
+    int CitiesCount();
+    
+    /// <summary>
+    /// Returns count of settlements in this country.
+    /// </summary>
+    /// <returns>count of settlements</returns>
+    int SettlementsCount();
 }

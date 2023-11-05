@@ -31,7 +31,8 @@ class Program
         var dniproPopCenters = new List<PopulationCenter>();
         dniproPopCenters.Add(regionCapitalCity);
         dniproPopCenters.Add(new City("Krivyi Rih", 700000, 430));
-        dniproPopCenters.Add(new Settlement("Sofiivka", 9000, 20));
+        var sofiivka = new Settlement("Sofiivka", 9000, 20);
+        dniproPopCenters.Add(sofiivka);
         
         dniproObl.PopulationCenters = dniproPopCenters;
 
@@ -62,9 +63,14 @@ class Program
         
         Console.WriteLine(Ukraine);
 
-        Ukraine.DeleteRegion(dniproObl);
+        Ukraine.DeleteRegion(odeskaObl);
         
         Console.WriteLine(Ukraine);
+        Console.WriteLine("Count of cities: "+Ukraine.CitiesCount());
+        
+        sofiivka.AddResidents(15000);
+        
+        Console.WriteLine("Count of cities after changes: "+Ukraine.CitiesCount());
 
     }
 }

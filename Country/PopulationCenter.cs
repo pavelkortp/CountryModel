@@ -17,6 +17,8 @@ public abstract class PopulationCenter
     /// </summary>
     private double _area;
 
+   
+    
     public PopulationCenter(string name)
     {
         Name = name;

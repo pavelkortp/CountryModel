@@ -2,6 +2,8 @@
 
 public class Settlement: PopulationCenter
 {
+    public const int MaxPopulation = 20000;
+    
     public Settlement(string name) : base(name)
     {
     }

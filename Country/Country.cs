@@ -131,7 +131,26 @@ public class Country : ICountry
         if (r == null) throw new ArgumentException("No regions with this name: " + name);
         return Regions.Remove(r);
     }
-    
+
+    public int CitiesCount()
+    {
+        return Regions.Sum(region =>
+        {
+            return region
+                .PopulationCenters
+                .Count(p => p.Population > Settlement.MaxPopulation);
+        });
+    }
+
+    public int SettlementsCount()
+    {
+        return Regions.Sum(region =>
+        {
+            return region
+                .PopulationCenters
+                .Count(p => p.Population <= Settlement.MaxPopulation);
+        });
+    }
 
     public override string ToString()
     {
